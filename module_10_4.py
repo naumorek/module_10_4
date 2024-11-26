@@ -132,7 +132,7 @@ class Cafe(threading.Thread):
                     table_flag+=1
                     table.guest.start()
                     break
-                elif table_flag>=5:
+                elif table_flag>=len(self.tables):
                     self.queue.put(guest)
                     print(f'Гость {guest.name} в очереди : Поток {threading.current_thread()}')
                     break
@@ -172,7 +172,7 @@ class Cafe(threading.Thread):
                 for tab_pr in self.tables:  #Проверяем все ли столы свободны
                     if tab_pr.guest==None:
                         proof_table+=1
-                if proof_table>=5: #Если все столы свободны, закрываем бесконечный цикл
+                if proof_table>=len(self.tables): #Если все столы свободны, закрываем бесконечный цикл
                     break
 
 
@@ -182,11 +182,11 @@ class Cafe(threading.Thread):
 
 
 # Создание столов
-tables = [Table(number) for number in range(1, 6)]
+tables = [Table(number) for number in range(1,8)]
 # Имена гостей
 guests_names = [
 'Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman',
-'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra'
+'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra','Petr','Athanasii', 'Gerasim','Pascal','Levin'
 ]
 # Создание гостей
 guests = [Guest(name) for name in guests_names]

@@ -130,6 +130,7 @@ class Cafe(threading.Thread):
                     table.guest=guest
                     print(f'{guest.name} сел(-а) за стол номер {table.number} : Поток {threading.current_thread()}')
                     table_flag+=1
+                    table.guest.start()
                     break
                 elif table_flag>=5:
                     self.queue.put(guest)
@@ -149,6 +150,7 @@ class Cafe(threading.Thread):
                                             #Если очередь есть
                 if table.guest == None:         # проверка что стол пустой
                     table.guest = self.queue.get()  #Если пустой, помещаем гостя из очереди
+
                     table.guest.start()
                     print(f"{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}: Поток {threading.current_thread()}")
 
@@ -176,16 +178,7 @@ class Cafe(threading.Thread):
 
 
 
-                    #for table in self.tables:
-                    #if not table.guest.threading.is_alive() and table.guest!=None:
-                    #    print(f"{table.guest.name} за столом {table.number} покушал(-а) и ушёл(ушла)")
-                    #    print(f"Стол номер {table.number} свободен")
-                    #    table.guest=None
 
-                    #if not self.queue.empty() and table.guest==None:
-                    #    table.guest=self.queue.get()
-                    #    print(f"{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
-                     #   table.guest.start()
 
 
 # Создание столов
